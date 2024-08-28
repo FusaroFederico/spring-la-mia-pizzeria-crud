@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:insert="~{fragments\fragments :: head}">
+	</head>
+	<body>
+		<header th:replace="~{fragments\fragments :: header}">
+		</header>
+		
+		<main class="container">
+			<div class="row m-4 mx-auto justify-content-md-center">
+				<div class="col-8 text-center mb-3">
+					<h2 class="my-3">Le Nostre Pizze</h2>
+					
+					<th:block th:if="${pizzas.size() > 0}">
+						<div class="row">
+								<!-- Card -->
+		                        <div th:each="pizza : ${pizzas}" class="col-md-4 mb-3">
+									<a th:href="@{'/pizzas/' + ${pizza.id}}" class="text-decoration-none">
+										<div class="card">
+			                                <img th:src="@{${pizza.photoUrl}}" class="card-img-top img-fluid"
+			                                    alt="foto della pizza" style="height: 200px;">
+			                                <div class="card-body">
+			                                    <h5 class="card-title" th:text="${pizza.name}">Pizza Margherita</h5>
+												<p class="card-text fw-bold" th:text="${pizza.getStandardPrice()}">€8.00</p>
+			                                </div>
+			                            </div>
+									</a>
+		                        </div>
+								<!-- /Card -->
+						</div>	
+					</th:block>
+					
+					<th:block th:unless="${pizzas.size() > 0}">
+						<h3>
+							Nessuna pizza al momento disponibile, ci scusiamo per l'inconveniente.
+						</h3>
+					</th:block>
+				</div>
+			</div>
+		</main>
+		
+		<footer th:replace="~{fragments\fragments :: footer}">
+		</footer>
+		
+		<div th:replace="~{fragments\fragments :: scripts}"></div>
+	</body>
+</html>
