@@ -33,4 +33,19 @@ public class PizzaController {
 		model.addAttribute("curPage", "pizzas");
 		return "/pizzas/index";
 	}
+	
+	@GetMapping("/{id}")
+	public String pizzaDetails(Model model, @PathVariable("id") Integer pizzaId) {
+		model.addAttribute("title", "Dettagli Pizza");
+		
+		Optional<Pizza> pizzaOpt = repo.findById(pizzaId);
+		Pizza pizza = null;
+		if(pizzaOpt.isPresent()) {
+			// Perform operations with the user object
+		    pizza = pizzaOpt.get();
+		}
+		
+		model.addAttribute("pizza", pizza);
+		return "/pizzas/show";
+	}
 }
