@@ -29,10 +29,10 @@
 	                <div class="collapse navbar-collapse" id="navbarNav">
 	                    <ul class="navbar-nav ms-auto">
 	                        <li class="nav-item">
-	                            <a class="nav-link" th:classappend="${curPage == 'home' ? 'active' : 'inactive'}" href="/">Home</a>
+	                            <a class="nav-link" th:classappend="${title == 'Homepage' ? 'active' : 'inactive'}" href="/">Home</a>
 	                        </li>
 	                        <li class="nav-item">
-	                            <a class="nav-link" th:classappend="${curPage == 'pizzas' ? 'active' : 'inactive'}" href="/pizzas/index">Menu</a>
+	                            <a class="nav-link" th:classappend="${title == 'Menù' ? 'active' : 'inactive'}" href="/pizzas/index">Menu</a>
 	                        </li>
 	                        <li class="nav-item">
 	                            <a class="nav-link" href="/#chi-siamo">Chi Siamo</a>
@@ -56,6 +56,7 @@
 		
 		<!-- Scripts -->
 		<th:block th:fragment="scripts">
+			<!-- Bootstrap js -->
 			<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
 		</th:block>
 	</body>

@@ -30,7 +30,6 @@ public class PizzaController {
 		// li inserisco nel model
 		model.addAttribute("pizzas", pizzas);
 		
-		model.addAttribute("curPage", "pizzas");
 		return "/pizzas/index";
 	}
 	

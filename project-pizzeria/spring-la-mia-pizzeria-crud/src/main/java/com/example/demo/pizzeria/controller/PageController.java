@@ -11,7 +11,6 @@ public class PageController {
 	@GetMapping("/")
 	public String homepage(Model model) {
 		model.addAttribute("title", "Homepage");
-		model.addAttribute("curPage", "home");
 		return "/pages/homepage";
 	}
 }
