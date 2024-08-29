@@ -3,5 +3,9 @@
 	height: 80vh; 
 	background-size: cover; 
 	background-position: center;
-	background-color: silver;
+}
+
+#detail-img {
+	height: 400px; 
+	width: 500px;
 }

@@ -12,7 +12,7 @@
 				<div class="col-8 mx-auto text-center">
 					<h1 class="mb-3 py-2" th:text="*{name}">SHOW</h1>
 					<img class="img-fluid img-thumbnail" th:alt="'pizza image representing our ' + *{name}" 
-							th:src="@{*{photoUrl}}" style="height: 400px; width: 500px;">
+						 id="detail-img" th:src="@{*{photoUrl}}">
 					</img>
 					<p class="mb-3 py-2 fs-6 fw-semibold">
 						Descrizione: 
