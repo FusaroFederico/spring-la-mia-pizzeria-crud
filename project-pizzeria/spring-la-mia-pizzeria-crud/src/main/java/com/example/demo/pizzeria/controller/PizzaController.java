@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.pizzeria.model.Pizza;
 import com.example.demo.pizzeria.repo.PizzaRepository;
@@ -21,12 +22,20 @@ public class PizzaController {
 	@Autowired
 	private PizzaRepository repo;
 	
-	@GetMapping("/index")
-	public String index(Model model) {
+	@GetMapping
+	public String index(Model model, @RequestParam(name = "name", required = false) String name) {
 		model.addAttribute("title", "Menù");
 		
-		// prendo i dati da consegnare a /pizzas/index
-		List<Pizza> pizzas = repo.findAll();
+		List<Pizza> pizzas;
+		
+		if ( name!=null && !name.isEmpty()) {
+			model.addAttribute("name", name);
+			pizzas = repo.findByNameContainingIgnoreCaseOrderByNameAsc(name);
+			
+		} else {
+			pizzas = repo.findAll();
+		}
+		
 		// li inserisco nel model
 		model.addAttribute("pizzas", pizzas);
 		
