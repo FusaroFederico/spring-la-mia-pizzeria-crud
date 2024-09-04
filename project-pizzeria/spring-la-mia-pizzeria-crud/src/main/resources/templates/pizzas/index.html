@@ -8,6 +8,17 @@
 		
 		<main class="container">
 			<div class="row m-4 mx-auto justify-content-md-center">
+				<div class="row bg-dark p-2 align-items-center">
+					<div class="col-9 text-end">
+						<span class="text-light fs-5">Filtra pizze per nome:</span>
+					</div>
+					<div class="col-3">
+						<form class="d-flex" role="search" method="GET" th:action="@{/pizzas}">
+						        <input class="form-control me-2" type="search" placeholder="nome..." aria-label="Search" name="name">
+						        <button class="btn btn-outline-warning">Cerca</button>
+						</form>
+					</div>
+				</div>
 				<div class="col-8 text-center mb-3">
 					<h2 class="my-3">Le Nostre Pizze</h2>
 					
@@ -31,9 +42,9 @@
 					</th:block>
 					
 					<th:block th:unless="${pizzas.size() > 0}">
-						<h3>
-							Nessuna pizza al momento disponibile, ci scusiamo per l'inconveniente.
-						</h3>
+						<h4 class="my-4">
+							Nessuna pizza trovata che contiene "[[ ${name} ]]" nel nome.
+						</h4>
 					</th:block>
 				</div>
 			</div>
