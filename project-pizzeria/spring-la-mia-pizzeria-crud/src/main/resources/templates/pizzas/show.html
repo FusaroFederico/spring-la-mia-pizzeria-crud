@@ -6,7 +6,7 @@
 		<header th:replace="~{fragments\fragments :: header}">
 		</header>
 		
-		<main class="container my-4 mx-auto justify-content-center">
+		<main class="container mt-3 mb-5 mx-auto justify-content-center">
 			
 			<th:block th:if="${!(pizza == null)}" th:object="${pizza}">
 				<div class="col-8 mx-auto text-center">
@@ -19,18 +19,21 @@
 						<span class="fst-italic" th:text="' ' + *{description}"></span>
 					</p>
 				</div>
+				<!-- Back and order buttons -->
+				<div class="col-8 mx-auto d-flex justify-content-between">
+					<a class="btn btn-primary" href="/pizzas" role="button">Torna al menù</a>
+					<a class="btn btn-primary" href="" role="button">Ordina</a>
+				</div>
+				<!-- /Back and order buttons -->
 			</th:block>
 			
 			<th:block th:unless="${!(pizza == null)}">
 				<h2 class="text-center py-3 mb-3">Dettagli non disponibili per questa pizza.</h2>
+				<div class="col-8 mx-auto d-flex justify-content-center">
+					   <a class="btn btn-primary" href="/pizzas" role="button">Torna al menù</a>
+				</div>
 			</th:block>
 			
-			<!-- Back button -->
-			<div class="col-8 mx-auto d-flex justify-content-between">
-				<a class="btn btn-primary" href="/pizzas" role="button">Torna al menù</a>
-				<a class="btn btn-primary" href="" role="button">Ordina</a>
-			</div>
-			<!-- /Back button -->
 		</main>
 		
 		<footer th:replace="~{fragments\fragments :: footer}">
