@@ -86,4 +86,32 @@ public class PizzaController {
 		redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 		return "redirect:/pizzas";
 	}
+	
+	// get -> edit()
+	@GetMapping("/edit/{id}")
+	public String edit(@PathVariable("id") Integer id, Model model) {
+		
+		model.addAttribute("title", "Modifica Pizza");
+		model.addAttribute("pizza", repo.findById(id).get());
+		
+		return "/pizzas/edit";
+	}
+	
+	// post -> update()
+	@PostMapping("/edit/{id}")
+	public String update(@Valid @ModelAttribute("pizza") Pizza updatedPizza, 
+						 BindingResult bindingResult,
+						 RedirectAttributes redirectAttributes) {
+		
+		if (bindingResult.hasErrors()) {
+			return "/pizzas/edit";
+		}
+		
+		repo.save(updatedPizza);
+		
+		redirectAttributes.addFlashAttribute("successMessage", "La pizza '" + updatedPizza.getName() + "' è stata aggiornata con successo.");
+		redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+		return "redirect:/pizzas";
+	}
+	
 }
