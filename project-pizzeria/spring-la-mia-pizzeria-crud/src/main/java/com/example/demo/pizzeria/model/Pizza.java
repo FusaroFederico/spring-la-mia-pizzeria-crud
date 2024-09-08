@@ -8,6 +8,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "pizzas")
@@ -17,21 +22,33 @@ public class Pizza {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotEmpty(message = "non può essere vuoto")
+	@NotNull
+	@Size(min=2, max=255, message = "il nome deve avere almeno 2 e massimo 255 caratteri")
 	@Column(name="name", nullable=false)
 	private String name;
 	
+	@NotEmpty(message = "non può essere vuoto")
+	@NotNull
+	@Size(min=10, max=255, message = "la descrizione deve avere almeno 10 e massimo 255 caratteri")
 	@Column(name="description", nullable=false)
 	private String description;
 	
+	@NotEmpty(message = "non può essere vuoto")
+	@NotNull
 	@Column(name="photo_url", nullable=false)
 	private String photoUrl;
 	
 	@Column(name="created_at")
 	private LocalDateTime createdAt;
 	
+	@NotNull(message = "non può essere vuoto")
+	@DecimalMin(value = "0.01", message = "il prezzo non può essere inferiore a 0.01") //@Positive
+	@DecimalMax(value = "100.00", message = "il prezzo non può essere superiore a 100")
 	@Column(name="price", nullable=false)
 	private Double price;
 	
+	// price formatter
 	public String getStandardPrice(){
 		return String.format("%.2f", this.price);
 	}
