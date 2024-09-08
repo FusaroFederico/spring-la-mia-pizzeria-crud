@@ -9,6 +9,7 @@
 		<main class="container">
 			<div class="row m-4 mx-auto justify-content-md-center">
 				<div class="row bg-dark p-2 px-3">
+				<div class="row bg-dark p-2 px-3 mb-3">
 					<div class="col-6 d-flex align-items-center text-start">
 						<span class="text-light fs-5 me-2">Filtra pizze per nome:</span>
 					
@@ -23,6 +24,12 @@
 				</div>
 				<div class="col-8 text-center mb-3">
 					<h2 class="my-3">Le Nostre Pizze</h2>
+					
+					<!-- Alert message -->
+					<th:block th:if="${successMessage != null}">
+						<div th:replace="~{fragments\fragments :: successAlert(${successMessage}, ${alertClass})}"></div>
+					</th:block>
+					<!-- /Alert message -->
 					
 					<th:block th:if="${pizzas.size() > 0}">
 						<div class="row">
