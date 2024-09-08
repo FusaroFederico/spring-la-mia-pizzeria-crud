@@ -8,7 +8,6 @@
 		
 		<main class="container">
 			<div class="row m-4 mx-auto justify-content-md-center">
-				<div class="row bg-dark p-2 px-3">
 				<div class="row bg-dark p-2 px-3 mb-3">
 					<div class="col-6 d-flex align-items-center text-start">
 						<span class="text-light fs-5 me-2">Filtra pizze per nome:</span>
@@ -35,16 +34,53 @@
 						<div class="row">
 								<!-- Card -->
 		                        <div th:each="pizza : ${pizzas}" class="col-md-4 mb-3">
-									<a th:href="@{'/pizzas/' + ${pizza.id}}" class="text-decoration-none">
-										<div class="card">
+									<div class="card">
+										<a th:href="@{'/pizzas/' + ${pizza.id}}" class="text-decoration-none">
 			                                <img th:src="@{${pizza.photoUrl}}" class="card-img-top img-fluid"
 			                                    alt="foto della pizza" style="height: 200px;">
-			                                <div class="card-body">
-			                                    <h5 class="card-title" th:text="${pizza.name}">Pizza Margherita</h5>
-												<p class="card-text fw-bold" th:text="${pizza.getStandardPrice()}">€8.00</p>
-			                                </div>
-			                            </div>
-									</a>
+										</a>
+		                                <div class="card-body">
+		                                    <h5 class="card-title" th:text="${pizza.name}">Pizza Margherita</h5>
+											<p class="card-text fw-bold" th:text="${'€ ' + pizza.getStandardPrice()}">€8.00</p>
+											<div class="d-flex justify-content-between">
+												
+														<!-- Edit button -->
+													<a th:href="@{/pizzas/edit/{id}(id = ${pizza.id})}" role="button" 
+																	class="btn btn-primary">Modifica</a>
+														<!-- /Edit button -->
+														
+													<!-- Button trigger modal -->
+													<button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="${'#deleteModal' + pizza.id}">
+													  		Elimina
+													</button>
+													<!-- /Button trigger modal -->
+													<!-- Modal -->
+													<div class="modal fade" th:id="${'deleteModal' + pizza.id}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+													  <div class="modal-dialog modal-dialog-centered">
+													    <div class="modal-content">
+													      <div class="modal-header">
+													        <h1 class="modal-title fs-5" id="deleteModalLabel">
+																	Sei sicuro/a di voler eliminare "[[${pizza.name}]]" ?</h1>
+													        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													      </div>
+													      <div class="modal-body">
+													        	Cliccando su conferma eliminerai permanentemente la pizza "[[${pizza.name}]]" dal menù.
+													      </div>
+													      <div class="modal-footer">
+													        	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+																<!-- Delete form -->
+																<form method="post" th:action="@{/pizzas/delete/{id}(id = ${pizza.id})}">
+																	<button type="submit" class="btn btn-danger">Conferma</button>
+																</form>
+																<!-- /Delete form -->
+													      </div>
+													    </div>
+													  </div>
+													</div>
+													<!-- /Modal -->
+											</div>
+		                                </div>
+									</div>
 		                        </div>
 								<!-- /Card -->
 						</div>	
