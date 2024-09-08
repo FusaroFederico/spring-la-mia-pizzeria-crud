@@ -114,4 +114,16 @@ public class PizzaController {
 		return "redirect:/pizzas";
 	}
 	
+	// post -> delete
+	@PostMapping("/delete/{id}")
+	public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+		
+		String pizzaName = repo.findById(id).get().getName();
+		
+		repo.deleteById(id);
+		
+		redirectAttributes.addFlashAttribute("successMessage", "La pizza '" + pizzaName + "' è stata eliminata dal menù.");
+		redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+		return "redirect:/pizzas";
+	}
 }
