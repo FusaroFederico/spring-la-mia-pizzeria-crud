@@ -18,6 +18,16 @@
 						Descrizione: 
 						<span class="fst-italic" th:text="' ' + *{description}"></span>
 					</p>
+					<th:block th:if="${ pizza.createdAt != null }">
+						<p class="mb-3 fs-6 fw-semibold">
+							Inserita il: [[ ${pizza.getFormattedCreatedAt()} ]]
+						</p>
+					</th:block>
+					<th:block th:if="${ pizza.updatedAt != null }">
+						<p class="mb-3 fs-6 fw-semibold">
+							Ultima modifica: [[ ${pizza.getFormattedUpdatedAt()} ]]
+						</p>
+					</th:block>
 				</div>
 				<!-- Back and order buttons -->
 				<div class="col-8 mx-auto d-flex justify-content-between">
