@@ -1,6 +1,10 @@
 package com.example.demo.pizzeria.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
@@ -39,8 +44,13 @@ public class Pizza {
 	@Column(name="photo_url", nullable=false)
 	private String photoUrl;
 	
-	@Column(name="created_at")
+	@Column(name="created_at", nullable=true, updatable = false)
+	@CreationTimestamp
 	private LocalDateTime createdAt;
+	
+	@Column(name="updated_at", nullable=true)
+	@UpdateTimestamp
+	private LocalDateTime updatedAt;
 	
 	@NotNull(message = "non può essere vuoto")
 	@DecimalMin(value = "0.01", message = "il prezzo non può essere inferiore a 0.01") //@Positive
@@ -48,7 +58,24 @@ public class Pizza {
 	@Column(name="price", nullable=false)
 	private Double price;
 	
-	// price formatter
+	@Transient
+	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
+	
+	// date formatted 
+	public String getFormattedCreatedAt(){
+		if(createdAt != null) {
+			return createdAt.format(dateFormatter);
+		}
+		return "";
+	}
+	public String getFormattedUpdatedAt(){
+		if(updatedAt != null) {
+			return updatedAt.format(dateFormatter);
+		}
+		return "";
+	}
+	
+	// price formatted
 	public String getStandardPrice(){
 		return String.format("%.2f", this.price);
 	}
@@ -89,6 +116,12 @@ public class Pizza {
 	}
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	
 }
